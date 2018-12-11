@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 @NgModule({
 	declarations: [],
 	imports: [ CommonModule ],
-	providers: [ ApiService ]
+	providers: [ ApiService ],
+	exports: []
 })
 export class CoreModule {}
