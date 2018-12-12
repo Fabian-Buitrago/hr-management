@@ -1,5 +1,5 @@
-interface IProject {
-	projectId: string;
+export interface IProject {
+	id: number;
 	name: string;
 	teamSize: number;
 	clientName: string;

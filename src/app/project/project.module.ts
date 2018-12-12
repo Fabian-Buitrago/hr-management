@@ -1,8 +1,11 @@
+import { ApiService } from 'src/app/core/api.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectListComponent } from './components/project-list/project-list.component';
+import { MaterialModule } from '../material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,10 @@ import { ProjectListComponent } from './components/project-list/project-list.com
   ],
   imports: [
     CommonModule,
-    ProjectRoutingModule
-  ]
+    MaterialModule,
+    ProjectRoutingModule,
+    ReactiveFormsModule
+  ],
+  providers:[ApiService]
 })
 export class ProjectModule { }

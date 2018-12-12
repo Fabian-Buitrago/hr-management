@@ -1,3 +1,18 @@
-<p>
-  project-form works!
-</p>
+<div class="project-container">
+    <form [formGroup]="projectForm" novalidate (ngSubmit)="onSubmit()">
+        <h2>{{hasIdProperty ? 'Update' : 'Create'}} Project</h2>
+
+        <div class="project-content-form">
+            <mat-form-field>
+                <input autofocus type="text" matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input autofocus type="text" matInput placeholder="Client Name" formControlName="clientName">
+            </mat-form-field>
+        </div>
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="!projectForm.valid">{{hasIdProperty ? 'Update' : 'Create'}}</button>
+        <button type="button" mat-raised-button (click)="refresh()">Cancel</button>
+    </form>
+</div>

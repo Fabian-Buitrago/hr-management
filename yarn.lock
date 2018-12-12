@@ -178,6 +178,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/http@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.1.2.tgz#928fd412c39a79fec3e67b01601d428c9cc8d43d"
+  integrity sha512-8wscCWG+Cd+/IKniYrBViMFWFZFNh8eEkmUAucPInwmcSFyY//ZLWd2WJLEqbclAGT7kOkTOdUjJ6eMnnWAFuw==
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/language-service@~7.1.0":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.1.1.tgz#6bbe35b2430ad54618a1803f881efb5894b296c9"
@@ -634,6 +641,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-in-memory-web-api@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/angular-in-memory-web-api/-/angular-in-memory-web-api-0.7.0.tgz#a6ea4cf7aa0d1edc369dd41f26c87e785460c3d3"
+  integrity sha512-l3Dnn+gDtXIC9RwgJ0Y/+Ka9C037JFAIl5kes6HlWju+135Wg2XxhGAqJoUCQoY5jeiyplSv46lr+W09ydkD6w==
 
 ansi-colors@^3.0.0:
   version "3.2.2"

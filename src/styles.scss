@@ -4,9 +4,17 @@ html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: url('./assets/img/concrete-texture.png') repeat;
+    background: url('./assets/img/brickwall.png') repeat;
 }
 
 .mat-drawer-container {
     background-color: transparent;
 }
+
+.clearfix:after { 
+    content: "."; 
+    visibility: hidden; 
+    display: block; 
+    height: 0; 
+    clear: both;
+ }

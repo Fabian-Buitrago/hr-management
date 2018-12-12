@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+}
+
+.mat-elevation-z8 {
+    padding: 40px 40px 0px;
+}
+
+.button-row button {
+  margin: 10px 0px;
+  float: right;
+}
+
+mat-icon{
+    cursor: pointer;
+
+    &:hover{
+        color: #3f51b5;
+    }
+}

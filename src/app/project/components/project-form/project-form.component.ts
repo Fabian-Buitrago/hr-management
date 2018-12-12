@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../core/api.service';
 
 @Component({
   selector: 'app-project-form',
@@ -6,10 +9,64 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
+  urlProjects = 'api/projects';
+  currentProject = {};
+  projectForm: FormGroup;
 
-  constructor() { }
+  constructor(
+    private api: ApiService, 
+    private fb: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ){
+    this.activatedRoute.params.subscribe(res => {
+      if(res.id){
+        this.fillFields(res.id);
+      }
+    });
 
-  ngOnInit() {
+    this.projectForm = this.fb.group({
+      name: ['', Validators.required],
+      clientName: ['', Validators.required]
+    });
+  }
+
+  fillFields(id){
+    this.api.get(`${this.urlProjects}/${id}`).subscribe((data) => {
+      this.currentProject = data;
+      this.projectForm.patchValue(data);
+    });
+  }
+
+  ngOnInit(){
+  }
+
+  onSubmit(){
+    let project = this.projectForm.value;
+    project.teamSize = this.currentProject['teamSize'];
+
+    if(this.hasIdProperty){
+      project.id = this.currentProject['id'];
+      this.api.put(this.urlProjects, project).subscribe((data) =>{  
+        this.refresh();  
+      });
+    }else{
+      this.api.post(this.urlProjects, project).subscribe((data) =>{  
+        this.refresh(); 
+      });
+    }
+  }
+
+  get hasIdProperty(){
+    return this.currentProject.hasOwnProperty('id');
+  }
+
+  refresh(){
+    this.router.navigate(['/dashboard/project']);
+  }
+
+  compareFn(value1, value2): boolean {
+    return value1 && value2 ? value1.id === value2.id : value1 === value2;
   }
 
 }

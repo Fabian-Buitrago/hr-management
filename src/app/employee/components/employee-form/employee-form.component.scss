@@ -1,0 +1,20 @@
+.employee-container{
+    display: flex;
+    justify-content: center;
+
+    form{
+        width: 50%;
+    }
+
+    button{
+        float: right;
+        margin: 10px 10px 0px;
+    }
+}
+
+.employee-content-form{
+    padding: 20px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}

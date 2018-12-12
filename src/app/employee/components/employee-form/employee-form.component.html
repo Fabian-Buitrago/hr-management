@@ -1,3 +1,44 @@
-<p>
-  employee-form works!
-</p>
+<div class="employee-container">
+    <form [formGroup]="employeeForm" novalidate (ngSubmit)="onSubmit()">
+        <h2>{{hasIdProperty ? 'Update' : 'Create'}} Employee</h2>
+
+        <div class="employee-content-form">
+            <mat-form-field>
+                <input autofocus type="text" matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="text" matInput placeholder="Company" formControlName="company">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="number" matInput placeholder="Age" formControlName="age">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="Favorite color" [compareWith]="compareFn" formControlName="favoriteColor">
+                    <mat-option *ngFor="let color of colors" [value]="color">
+                        {{color.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="Project" [compareWith]="compareFn" formControlName="project">
+                    <mat-option *ngFor="let project of projects" [value]="project">
+                        {{project.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="!employeeForm.valid">{{hasIdProperty ? 'Update' : 'Create'}}</button>
+        <button type="button" mat-raised-button (click)="refresh()">Cancel</button>
+    </form>
+</div>
