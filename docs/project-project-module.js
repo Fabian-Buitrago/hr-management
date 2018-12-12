@@ -66,6 +66,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.api.get(this.urlProjects + "/" + id).subscribe(function (data) {
             _this.currentProject = data;
             _this.projectForm.patchValue(data);
+            _this.projectForm.get('name').disable();
         });
     };
     ProjectFormComponent.prototype.ngOnInit = function () {

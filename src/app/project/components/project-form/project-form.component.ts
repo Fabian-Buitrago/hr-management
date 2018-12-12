@@ -35,6 +35,7 @@ export class ProjectFormComponent implements OnInit {
     this.api.get(`${this.urlProjects}/${id}`).subscribe((data) => {
       this.currentProject = data;
       this.projectForm.patchValue(data);
+      this.projectForm.get('name').disable();
     });
   }
 
