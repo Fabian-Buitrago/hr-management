@@ -154,7 +154,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer mode=\"side\"  fixedInViewport=\"true\" >\n    <mat-toolbar>HR MANAGEMENT</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item [routerLink]=\"['./employee']\">Employees</a>\n      <a mat-list-item [routerLink]=\"['./project']\">Projects</a>\n      <a mat-list-item (click)=\"logout()\">Logout</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" mat-icon-button (click)=\"drawer.toggle()\">\n        <mat-icon>menu</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>"
+module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer mode=\"side\"  fixedInViewport=\"true\" >\n    <mat-toolbar>HR MANAGEMENT</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item [routerLink]=\"['./employee']\" (click)=\"drawer.toggle()\">Employees</a>\n      <a mat-list-item [routerLink]=\"['./project']\" (click)=\"drawer.toggle()\">Projects</a>\n      <a mat-list-item (click)=\"logout()\">Logout</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" mat-icon-button (click)=\"drawer.toggle()\">\n        <mat-icon>menu</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>"
 
 /***/ }),
 

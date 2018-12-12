@@ -2,8 +2,8 @@
   <mat-sidenav #drawer mode="side"  fixedInViewport="true" >
     <mat-toolbar>HR MANAGEMENT</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['./employee']">Employees</a>
-      <a mat-list-item [routerLink]="['./project']">Projects</a>
+      <a mat-list-item [routerLink]="['./employee']" (click)="drawer.toggle()">Employees</a>
+      <a mat-list-item [routerLink]="['./project']" (click)="drawer.toggle()">Projects</a>
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
