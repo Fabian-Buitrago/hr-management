@@ -69,10 +69,16 @@ export class EmployeeFormComponent implements OnInit{
 
     if(this.hasIdProperty){
       employee.id = this.currentEmployee['id'];
+      this.updateTeamSize(employee);
       this.api.put(this.urlEmployees, employee).subscribe((data) =>{  
         this.refresh();  
       });
     }else{
+      this.api.get(`${this.urlProjects}/${employee.project.id}`).subscribe((project) =>{
+        project.teamSize = project.teamSize  + 1;
+        this.api.put(this.urlProjects, project).subscribe(console.log);
+      });
+   
       this.api.post(this.urlEmployees, employee).subscribe((data) =>{  
         this.refresh(); 
       });
@@ -81,6 +87,29 @@ export class EmployeeFormComponent implements OnInit{
 
   get hasIdProperty(){
     return this.currentEmployee.hasOwnProperty('id');
+  }
+
+  updateTeamSize(employee){
+    let currentEmployeeId = this.currentEmployee['project']['id'];
+    let currentEmployeeFormId = employee.project.id;
+
+    if(currentEmployeeId !== currentEmployeeFormId){
+        this.api.get(this.urlProjects)
+        .subscribe((projects) => {
+            let projectArray = projects.filter((item)=> {
+                if(item.id === currentEmployeeId){
+                    item.teamSize = item.teamSize - 1;
+                }else if(item.id === currentEmployeeFormId){
+                    item.teamSize = item.teamSize + 1;
+                }
+
+                return item.id === currentEmployeeId || item.id === currentEmployeeFormId;
+            });
+
+            this.api.put(this.urlProjects, projectArray[0]).subscribe(console.log);
+            this.api.put(this.urlProjects, projectArray[1]).subscribe(console.log);
+        })
+    }
   }
 
   refresh(){

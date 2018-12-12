@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ApiService } from 'src/app/core/api.service';
 import { IEmployee } from 'src/app/shared/interfaces/employee.interface';
+import { filter, mergeMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-employee-list',
@@ -9,7 +10,8 @@ import { IEmployee } from 'src/app/shared/interfaces/employee.interface';
 	styleUrls: [ './employee-list.component.scss' ],
 })
 export class EmployeeListComponent implements OnInit {
-    url = 'api/employees';
+    urlEmployees = 'api/employees';
+    urlProjects = 'api/projects'
     displayedColumns = [ 'id', 'name', 'company', 'age', 'birthday', 'favoriteColor', 'project', 'action' ];
     dataSource: MatTableDataSource<IEmployee>;
   
@@ -22,15 +24,26 @@ export class EmployeeListComponent implements OnInit {
     }
 
     populateTable(){
-        this.api.get(this.url).subscribe((employees) => {
+        this.api.get(this.urlEmployees).subscribe((employees) => {
             this.dataSource = new MatTableDataSource<IEmployee>(employees);
             this.dataSource.paginator = this.paginator;
         });
     }
     
-    delete(id){
-        this.api.delete(`${this.url}/${id}`).subscribe((data) => {
-            this.populateTable();
-        })
+    delete(id, element){
+        this.api.delete(`${this.urlEmployees}/${id}`)
+        .subscribe(() => {
+            this.api.get(this.urlProjects)
+            .subscribe((projects) => {
+                let project = projects.filter((item)=>{
+                    return item.id === element.project.id
+                })
+
+                project[0].teamSize = 0;
+                this.api.put(this.urlProjects, project[0]).subscribe(() => {
+                    this.populateTable();
+                });
+            })
+        });
     }
 }

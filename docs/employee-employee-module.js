@@ -94,11 +94,16 @@ var EmployeeFormComponent = /** @class */ (function () {
         };
         if (this.hasIdProperty) {
             employee.id = this.currentEmployee['id'];
+            this.updateTeamSize(employee);
             this.api.put(this.urlEmployees, employee).subscribe(function (data) {
                 _this.refresh();
             });
         }
         else {
+            this.api.get(this.urlProjects + "/" + employee.project.id).subscribe(function (project) {
+                project.teamSize = project.teamSize + 1;
+                _this.api.put(_this.urlProjects, project).subscribe(console.log);
+            });
             this.api.post(this.urlEmployees, employee).subscribe(function (data) {
                 _this.refresh();
             });
@@ -111,6 +116,27 @@ var EmployeeFormComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    EmployeeFormComponent.prototype.updateTeamSize = function (employee) {
+        var _this = this;
+        var currentEmployeeId = this.currentEmployee['project']['id'];
+        var currentEmployeeFormId = employee.project.id;
+        if (currentEmployeeId !== currentEmployeeFormId) {
+            this.api.get(this.urlProjects)
+                .subscribe(function (projects) {
+                var projectArray = projects.filter(function (item) {
+                    if (item.id === currentEmployeeId) {
+                        item.teamSize = item.teamSize - 1;
+                    }
+                    else if (item.id === currentEmployeeFormId) {
+                        item.teamSize = item.teamSize + 1;
+                    }
+                    return item.id === currentEmployeeId || item.id === currentEmployeeFormId;
+                });
+                _this.api.put(_this.urlProjects, projectArray[0]).subscribe(console.log);
+                _this.api.put(_this.urlProjects, projectArray[1]).subscribe(console.log);
+            });
+        }
+    };
     EmployeeFormComponent.prototype.refresh = function () {
         this.router.navigate(['/dashboard/employee']);
     };
@@ -142,7 +168,7 @@ var EmployeeFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mat-elevation-z8\">\n  \n  <div class=\"button-row clearfix\">\n    <button mat-raised-button color=\"primary\" [routerLink]=\"['./employeeForm']\">Create</button>\n  </div>\n\n  <h1>Employees</h1>\n\n  <table mat-table [dataSource]=\"dataSource\">\n\n    <!-- Id Column -->\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef> No. </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.id}} </td>\n    </ng-container>\n\n    <!-- Name Column -->\n    <ng-container matColumnDef=\"name\">\n      <th mat-header-cell *matHeaderCellDef> Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n    </ng-container>\n\n    <!-- Company Column -->\n    <ng-container matColumnDef=\"company\">\n      <th mat-header-cell *matHeaderCellDef> Company </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.company}} </td>\n    </ng-container>\n\n    <!-- Age Column -->\n    <ng-container matColumnDef=\"age\">\n      <th mat-header-cell *matHeaderCellDef> Age </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.age}} </td>\n    </ng-container>\n\n     <!-- Birthday Column -->\n     <ng-container matColumnDef=\"birthday\">\n      <th mat-header-cell *matHeaderCellDef> Birthday </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.birthday | date: 'dd/MM/yyyy' }} </td>\n    </ng-container>\n\n    <!-- Favorite Color Column -->\n    <ng-container matColumnDef=\"favoriteColor\">\n      <th mat-header-cell *matHeaderCellDef> Favorite Color </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.favoriteColor.name}} </td>\n    </ng-container>\n\n    <!-- Project Column -->\n    <ng-container matColumnDef=\"project\">\n      <th mat-header-cell *matHeaderCellDef> Project </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.project.name}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <mat-icon [routerLink]=\"['./employeeForm', element.id]\">edit</mat-icon>\n        <mat-icon (click)=\"delete(element.id)\">delete</mat-icon>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n</div>"
+module.exports = "<div class=\"mat-elevation-z8\">\n  \n  <div class=\"button-row clearfix\">\n    <button mat-raised-button color=\"primary\" [routerLink]=\"['./employeeForm']\">Create</button>\n  </div>\n\n  <h1>Employees</h1>\n\n  <table mat-table [dataSource]=\"dataSource\">\n\n    <!-- Id Column -->\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef> No. </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.id}} </td>\n    </ng-container>\n\n    <!-- Name Column -->\n    <ng-container matColumnDef=\"name\">\n      <th mat-header-cell *matHeaderCellDef> Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n    </ng-container>\n\n    <!-- Company Column -->\n    <ng-container matColumnDef=\"company\">\n      <th mat-header-cell *matHeaderCellDef> Company </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.company}} </td>\n    </ng-container>\n\n    <!-- Age Column -->\n    <ng-container matColumnDef=\"age\">\n      <th mat-header-cell *matHeaderCellDef> Age </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.age}} </td>\n    </ng-container>\n\n     <!-- Birthday Column -->\n     <ng-container matColumnDef=\"birthday\">\n      <th mat-header-cell *matHeaderCellDef> Birthday </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.birthday | date: 'dd/MM/yyyy' }} </td>\n    </ng-container>\n\n    <!-- Favorite Color Column -->\n    <ng-container matColumnDef=\"favoriteColor\">\n      <th mat-header-cell *matHeaderCellDef> Favorite Color </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.favoriteColor.name}} </td>\n    </ng-container>\n\n    <!-- Project Column -->\n    <ng-container matColumnDef=\"project\">\n      <th mat-header-cell *matHeaderCellDef> Project </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.project.name}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <mat-icon [routerLink]=\"['./employeeForm', element.id]\">edit</mat-icon>\n        <mat-icon (click)=\"delete(element.id, element)\">delete</mat-icon>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n</div>"
 
 /***/ }),
 
@@ -178,7 +204,8 @@ __webpack_require__.r(__webpack_exports__);
 var EmployeeListComponent = /** @class */ (function () {
     function EmployeeListComponent(api) {
         this.api = api;
-        this.url = 'api/employees';
+        this.urlEmployees = 'api/employees';
+        this.urlProjects = 'api/projects';
         this.displayedColumns = ['id', 'name', 'company', 'age', 'birthday', 'favoriteColor', 'project', 'action'];
     }
     EmployeeListComponent.prototype.ngOnInit = function () {
@@ -186,15 +213,25 @@ var EmployeeListComponent = /** @class */ (function () {
     };
     EmployeeListComponent.prototype.populateTable = function () {
         var _this = this;
-        this.api.get(this.url).subscribe(function (employees) {
+        this.api.get(this.urlEmployees).subscribe(function (employees) {
             _this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](employees);
             _this.dataSource.paginator = _this.paginator;
         });
     };
-    EmployeeListComponent.prototype.delete = function (id) {
+    EmployeeListComponent.prototype.delete = function (id, element) {
         var _this = this;
-        this.api.delete(this.url + "/" + id).subscribe(function (data) {
-            _this.populateTable();
+        this.api.delete(this.urlEmployees + "/" + id)
+            .subscribe(function () {
+            _this.api.get(_this.urlProjects)
+                .subscribe(function (projects) {
+                var project = projects.filter(function (item) {
+                    return item.id === element.project.id;
+                });
+                project[0].teamSize = 0;
+                _this.api.put(_this.urlProjects, project[0]).subscribe(function () {
+                    _this.populateTable();
+                });
+            });
         });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

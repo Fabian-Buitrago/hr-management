@@ -55,7 +55,7 @@
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let element">
         <mat-icon [routerLink]="['./employeeForm', element.id]">edit</mat-icon>
-        <mat-icon (click)="delete(element.id)">delete</mat-icon>
+        <mat-icon (click)="delete(element.id, element)">delete</mat-icon>
       </td>
     </ng-container>
 
