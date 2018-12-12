@@ -2,14 +2,23 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class DatabaseService implements InMemoryDbService {
   createDb() {
-    const colors = [
+      const users = [
+  			{
+  				id: 1,
+  				name: 'Fabian Buitrago',
+  				username: 'fabian',
+  				password: '12345'
+  			}
+  		];
+
+      const colors = [
         { id: 1, name: 'black' },
         { id: 2, name: 'blue' },
         { id: 3, name: 'green' },
         { id: 4, name: 'pink' },
         { id: 5, name: 'red' },
         { id: 6, name: 'white' },
-        { id: 7, name: 'yellow' },
+        { id: 7, name: 'yellow' }
       ];
   
       const employees = [
@@ -39,6 +48,6 @@ export class DatabaseService implements InMemoryDbService {
         { id: 6, name: 'Project 6', teamSize: 0, clientName: "Apex" }
       ];
   
-      return { colors, employees, projects };
+      return { colors, employees, projects, users };
   }
 }

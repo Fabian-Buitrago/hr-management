@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ApiService } from 'src/app/core/api.service';
 import { IEmployee } from 'src/app/shared/interfaces/employee.interface';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-employee-list',
@@ -16,7 +15,7 @@ export class EmployeeListComponent implements OnInit {
   
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor( private router: Router, private api: ApiService) {}
+	constructor(private api: ApiService) {}
 
 	ngOnInit() {
         this.populateTable();

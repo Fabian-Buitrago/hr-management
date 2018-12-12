@@ -1,3 +1,24 @@
-.dashboard-container {
-    height: 100vh;
+:host{
+    display: flex;
+    min-height: 100vh;
 }
+
+mat-card{
+    top: -40px;
+    width: 189px;
+    margin: auto;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover{
+        background: lightblue;
+    }
+}
+
+mat-icon{
+    width: 100%;
+    height: auto;
+    font-size: 100px;
+    color: #3f51b5;
+}
+
