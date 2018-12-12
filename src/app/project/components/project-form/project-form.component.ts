@@ -44,8 +44,6 @@ export class ProjectFormComponent implements OnInit {
 
   onSubmit(){
     let project = this.projectForm.value;
-    console.log(this.currentProject['teamSize']);
-
     project.teamSize = this.currentProject['teamSize'] ? this.currentProject['teamSize'] : 0;
 
     if(this.hasIdProperty){

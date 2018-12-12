@@ -74,7 +74,6 @@ var ProjectFormComponent = /** @class */ (function () {
     ProjectFormComponent.prototype.onSubmit = function () {
         var _this = this;
         var project = this.projectForm.value;
-        console.log(this.currentProject['teamSize']);
         project.teamSize = this.currentProject['teamSize'] ? this.currentProject['teamSize'] : 0;
         if (this.hasIdProperty) {
             project.id = this.currentProject['id'];
